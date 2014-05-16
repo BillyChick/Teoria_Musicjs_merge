@@ -1,0 +1,123 @@
+<!doctype html>
+<html>
+<head>
+<title>teoria/music.js</title>
+
+<script src="teoria.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js"></script>
+
+<!--jQuery UI -->
+<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+
+<style type="text/css">
+body {
+	font-family: "Trebuchet MS", "Helvetica", "Arial",  "Verdana", "sans-serif";
+	font-size: 75%;
+	width: 960px;
+	margin: 10px auto;
+}
+
+div.code {
+    background: none repeat scroll 0 0 #ededed;
+    border: 10px solid #d3d3d3;
+    width: 90%;
+}
+
+p#desc {
+    font-size: 14px;
+}
+</style>
+
+<script>
+
+	$(function() {
+
+		$( "#tabs" ).tabs();
+
+		updateScaleTable(teoria.note($('#note2').val()+$('#accidental2').val()+parseInt($('#octave2').val())));
+
+		$('#scaleInput ,select').change(function() {
+			updateScaleTable(teoria.note($('#note2').val()+$('#accidental2').val()+parseInt($('#octave2').val())));
+		});
+	});
+
+	function updateScaleTable(notey)
+	{
+		var scale = notey.scale($("#scale").val());
+
+		var scaleHTML = "<table border='1'><tr><th colspan=" + scale.length+1 + ">" + notey.toString() + " " + $("#scale").val() + " scale: </th></tr><tr>";
+
+		for (var i=0; i<scale.length; i++) {
+			scaleHTML += "<td width='40px'>" + scale[i].notes + "</td>";
+		}
+
+		scaleHTML += "</tr></table>";
+
+		$('#scaleTable').empty();
+		$('#scaleTable').append(scaleHTML);
+	}
+
+
+
+</script>
+
+</head>
+<body>
+
+<h1>main.js</h1> 
+<h2>easily generate frequencies for notes, chords, scales, and more</h2>
+<p id="desc">This demo uses <a href="https://github.com/GregJ/music.js" target="_blank">music.js</a></p>
+<div id="tabs">
+	<ul>
+		<li><a href="#tabs-scales">Scales</a></li>
+	</ul>
+	<div id="tabs-scales">
+		<h3>scale syntax</h3>
+		<br />
+		<h3>scale demo</h3>
+		<div id="scaleInput">
+			note
+			<select id="note2">
+				<option>A</option>
+				<option>B</option>
+				<option selected="selected">C</option>
+				<option>D</option>
+				<option>E</option>
+				<option>F</option>
+				<option>G</option>
+			</select>
+			accidental
+			<select id="accidental2">
+				<option selected="selected"></option>
+				<option>#</option>
+				<option>b</option>
+			</select>
+			octave
+			<select id="octave2">
+				<option>0</option>
+				<option>1</option>
+				<option>2</option>
+				<option>3</option>
+				<option selected="selected">4</option>
+				<option>5</option>
+				<option>6</option>
+				<option>7</option>
+			</select>		
+			<br />
+			<select name="scale" id="scale" >
+				<option value="ionian" selected>major</option>
+				<option value="aeolian">minor</option>
+				<option value="mixolydian">mixolydian</option>
+				<option value="dorian">dorian</option>
+				<option value="minor pentatonic">minor pentatonic</option>
+			</select>
+		</div>
+
+		<br />
+		<div id="scaleTable"></div>
+	</div>
+
+</div>
+</body>
+</html>
