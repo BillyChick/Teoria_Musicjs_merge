@@ -18,6 +18,11 @@ body {
 	margin: 10px auto;
 }
 
+div.code {
+    background: none repeat scroll 0 0 #ededed;
+    border: 10px solid #d3d3d3;
+    width: 90%;
+}
 
 p#desc {
     font-size: 14px;
@@ -41,17 +46,32 @@ p#desc {
 	{
 		var scale = notey.scale($("#scale").val());
 
-		var scaleHTML = "<table border='1'><tr><th colspan=" + scale.length+1 + ">" + notey.toString() + " " + $("#scale").val() + " scale: </th></tr><tr>";
-
-		for (var i=0; i<scale.length; i++) {
-			scaleHTML += "<td width='40px'>" + scale[i].notes + "</td>";
+		var scaleHTML = "<table border='1'><thead colspan=" + scale.length+1 + ">" + notey.toString() + " " + $("#scale").val() + " scale: </thead><tr>";
+        
+        
+		for (var i=0; i<scale.simple().length; i++) {
+			scaleHTML += "<td width='40px'>" + scale.simple()[i] + "</td>";
 		}
 
 		scaleHTML += "</tr></table>";
 
 		$('#scaleTable').empty();
 		$('#scaleTable').append(scaleHTML);
+		
+        console.log(scale.simple());
+		
 	}
+    
+
+/*var chordypie = a4.chord("m7").notes().toString().split(" ");
+console.log(chordypie);
+
+function init()
+    {
+        var panel = document.getElementById("panelpie");
+        panel.innerHTML = note4;
+    }
+window.onload = init;*/
 
 
 
